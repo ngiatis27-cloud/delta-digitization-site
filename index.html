@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delta Digitization</title>
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --navy:#0f172a;
+      --navy2:#1e293b;
+      --gold:#b45309;
+      --gold-soft:#fde68a;
+      --cream:#fff7ed;
+      --soft:#f8fafc;
+      --shadow:0 18px 40px rgba(15,23,42,.12);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f8fafc 0%,#eef2f7 100%);
+      color:var(--ink);
+    }
+    .page{
+      max-width:1100px;
+      margin:30px auto;
+      background:var(--card);
+      border-radius:32px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:1px solid var(--line);
+    }
+    .hero{
+      background:linear-gradient(135deg,var(--navy) 0%, var(--navy2) 50%, var(--gold) 100%);
+      color:#fff;
+      padding:48px 48px 42px;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      color:#fde68a;
+      font-size:14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .delta{
+      width:28px;height:28px;border-radius:999px;
+      background:rgba(255,255,255,.16);
+      display:grid;place-items:center;
+      font-weight:700;font-size:18px;
+      border:1px solid rgba(255,255,255,.2);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .95fr;
+      gap:32px;
+      align-items:center;
+      margin-top:18px;
+    }
+    h1{
+      margin:14px 0 12px;
+      font-size:56px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+    .lead{
+      margin:0;
+      color:#fde68a;
+      font-size:21px;
+      line-height:1.6;
+      max-width:700px;
+    }
+    .quick{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:26px;
+    }
+    .quick .box{
+      background:#fff;
+      color:var(--ink);
+      border-radius:18px;
+      padding:16px 18px;
+      min-width:180px;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+    .quick .box.dark{
+      background:rgba(255,255,255,.10);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    .quick .label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#6b7280}
+    .quick .dark .label{color:#fde68a}
+    .quick .value{font-size:28px;font-weight:700;margin-top:6px}
+    .process{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:28px;
+      padding:22px;
+      backdrop-filter: blur(8px);
+    }
+    .steps{
+      display:grid;
+      grid-template-columns:1fr auto 1fr auto 1fr;
+      gap:10px;
+      align-items:center;
+      text-align:center;
+    }
+    .step{
+      background:#fff;
+      color:var(--ink);
+      border-radius:22px;
+      padding:20px 14px;
+      box-shadow:0 10px 24px rgba(0,0,0,.12);
+      min-height:124px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .step .emoji{font-size:30px}
+    .step .title{margin-top:10px;font-size:18px;font-weight:700}
+    .arrow{font-size:30px;color:#fde68a}
+    .note{
+      margin-top:14px;
+      border-radius:18px;
+      padding:14px 16px;
+      background:rgba(15,23,42,.45);
+      color:#f8fafc;
+      font-size:15px;
+      line-height:1.6;
+    }
+    .section{padding:42px 48px}
+    .two{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+    .info-card,.pricing-card,.contact-card,.use-card,.photo-card{
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:#fff;
+      box-shadow:0 6px 18px rgba(15,23,42,.05);
+    }
+    .info-card{padding:26px;background:#fcfcfd}
+    .info-head{
+      display:flex;align-items:center;gap:14px;margin-bottom:16px;
+      font-size:28px;font-weight:700;
+    }
+    .info-icon{
+      width:52px;height:52px;border-radius:18px;background:#fde68a;
+      display:grid;place-items:center;font-size:24px;
+    }
+    .info-card ul{margin:0;padding-left:20px;color:#475569;line-height:1.8;font-size:18px}
+    .center-head{text-align:center}
+    .center-head h2{
+      font-size:42px;margin:0;color:var(--ink);letter-spacing:-.03em;
+    }
+    .center-head p{
+      margin:10px auto 0;max-width:760px;color:var(--muted);font-size:19px;line-height:1.7;
+    }
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+    .photo-card{padding:16px}
+    .photo-label{
+      text-transform:uppercase;letter-spacing:.12em;font-size:12px;
+      color:#6b7280;font-weight:700;
+    }
+    .photo-label.after{color:#92400e}
+    .photo-card img{
+      margin-top:12px;width:100%;display:block;border-radius:18px;
+      object-fit:cover;background:#f3f4f6;
+      max-height:480px;
+    }
+    .photo-card p{margin:12px 2px 4px;color:var(--muted);line-height:1.6}
+    .pricing-wrap{
+      background:#f8fafc;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .pricing-head{
+      display:flex;justify-content:space-between;align-items:end;gap:20px;
+    }
+    .pricing-head h2{margin:0;font-size:40px;letter-spacing:-.03em}
+    .pricing-head p{margin:8px 0 0;color:var(--muted);font-size:18px}
+    .rec{
+      background:#fde68a;border-radius:16px;padding:12px 16px;
+      font-weight:700;color:#78350f;font-size:15px;
+    }
+    .pricing-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px;
+    }
+    .pricing-card{overflow:hidden}
+    .pricing-card .top{padding:22px 22px 16px;border-bottom:1px solid var(--line)}
+    .pricing-card h3{margin:0;font-size:28px}
+    .pricing-card .sub{margin-top:6px;color:var(--muted)}
+    .price-row{
+      display:flex;justify-content:space-between;gap:18px;align-items:center;
+      padding:18px 22px;border-top:1px solid var(--line);
+    }
+    .price-row:first-of-type{border-top:none}
+    .price-row .name{font-weight:700;font-size:19px}
+    .price-row .desc{margin-top:4px;color:var(--muted);font-size:14px}
+    .price-row .amt{font-weight:700;font-size:32px}
+    .bottom{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:24px;
+    }
+    .contact-card{
+      background:var(--navy);
+      color:#fff;
+      padding:28px;
+      box-shadow:0 18px 40px rgba(15,23,42,.18);
+    }
+    .eyebrow{
+      text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:#fde68a;font-weight:700;
+    }
+    .contact-card h2{margin:10px 0 0;font-size:38px;letter-spacing:-.03em}
+    .contact-card p{color:#fcd34d;line-height:1.7;font-size:18px}
+    .contact-grid{display:grid;gap:14px;margin-top:18px}
+    .contact-box{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;padding:16px 18px;
+    }
+    .contact-box .label{font-size:13px;color:#fcd34d;text-transform:uppercase;letter-spacing:.12em}
+    .contact-box .value{font-size:22px;font-weight:700;margin-top:6px;word-break:break-word}
+    .use-card{
+      padding:28px;
+      background:linear-gradient(135deg,#fde68a 0%, #f8fafc 100%);
+    }
+    .use-card .eyebrow{color:#6b7280}
+    .use-card h3{margin:10px 0 0;font-size:34px;letter-spacing:-.03em}
+    .chips{display:grid;gap:12px;margin-top:18px}
+    .chip{
+      background:rgba(255,255,255,.85);
+      border-radius:16px;padding:14px 16px;
+      box-shadow:0 6px 16px rgba(15,23,42,.08);
+      font-size:18px;color:#334155;
+    }
+    .footer-space{height:10px}
+    @media (max-width: 900px){
+      .hero-grid,.two,.pair,.pricing-grid,.bottom{grid-template-columns:1fr}
+      h1{font-size:42px}
+      .section,.hero{padding:28px 22px}
+      .pricing-head{flex-direction:column;align-items:flex-start}
+      .steps{grid-template-columns:1fr;gap:12px}
+      .arrow{transform:rotate(90deg);justify-self:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="badge"><span class="delta">Δ</span> <span>Delta Digitization</span></div>
+      <div class="hero-grid">
+        <div>
+          <h1>Preserve Your Family Memories</h1>
+          <p class="lead">Turn old printed photos into high-quality digital files that can be shared, backed up, and passed down for generations.</p>
+          <div class="quick">
+            <div class="box">
+              <div class="label">Starting at</div>
+              <div class="value">$0.30 / photo</div>
+            </div>
+            <div class="box dark">
+              <div class="label">High quality</div>
+              <div class="value">600 DPI Available</div>
+            </div>
+          </div>
+        </div>
+        <div class="process">
+          <div class="steps">
+            <div class="step"><div class="emoji">📷</div><div class="title">Old Photos</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="emoji">🖨️</div><div class="title">Scanning</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="emoji">💾</div><div class="title">Digital Files</div></div>
+          </div>
+          <div class="note">Great for albums, boxes of family photos, keepsakes, and long-term archiving.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="two">
+        <div class="info-card">
+          <div class="info-head"><div class="info-icon">🕰️</div><div>Why Digitize?</div></div>
+          <ul>
+            <li>Photos fade, tear, and get lost over time.</li>
+            <li>Digital copies make it easy to share with family.</li>
+            <li>You can safely back up important memories forever.</li>
+            <li>Old albums and photo boxes become easier to organize.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="info-head"><div class="info-icon">✨</div><div>What You Receive</div></div>
+          <ul>
+            <li>High-resolution digital image files</li>
+            <li>300 DPI and 600 DPI scanning options</li>
+            <li>Organized folders for easier viewing</li>
+            <li>Digital delivery and archival-ready files</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="center-head">
+        <h2>Before &amp; After</h2>
+        <p>Old photos can look faded or damaged. Digitizing preserves and enhances them for the future.</p>
+      </div>
+
+      <div class="pair">
+        <div class="photo-card">
+          <div class="photo-label">Before</div>
+          <img src="before_dance.jpg" alt="Original dark event photo" />
+          <p>Original scanned photo with fading and low visibility.</p>
+        </div>
+        <div class="photo-card">
+          <div class="photo-label after">After</div>
+          <img src="after_dance.jpg" alt="Enhanced event photo" />
+          <p>Digitized and enhanced for better brightness and clarity.</p>
+        </div>
+      </div>
+
+      <div class="pair">
+        <div class="photo-card">
+          <div class="photo-label">Before</div>
+          <img src="before_kitchen.jpg" alt="Original family kitchen photo" />
+          <p>Original photo with color fading and aging artifacts.</p>
+        </div>
+        <div class="photo-card">
+          <div class="photo-label after">After</div>
+          <img src="after_kitchen.jpg" alt="Restored family kitchen photo" />
+          <p>Cleaned and digitized version ready for long-term archiving.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pricing-wrap">
+      <div class="pricing-head">
+        <div>
+          <h2>Simple Pricing</h2>
+          <p>Clear pricing for loose photos and album photo handling.</p>
+        </div>
+        <div class="rec">Recommended: 600 DPI for long-term archiving</div>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="top">
+            <h3>Loose Photos</h3>
+            <div class="sub">Photos not in albums</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">300 DPI</div><div class="desc">Standard quality</div></div>
+            <div class="amt">$0.30</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">600 DPI</div><div class="desc">High quality</div></div>
+            <div class="amt">$0.35</div>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="top">
+            <h3>Album Photos</h3>
+            <div class="sub">For photos that need careful handling</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">Remove from album</div><div class="desc">Per photo</div></div>
+            <div class="amt">+$0.20</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">Reinsert into album</div><div class="desc">Optional, per photo</div></div>
+            <div class="amt">+$0.20</div>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="top">
+            <h3>Delivery Option</h3>
+            <div class="sub">USB Flash Drive</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">16 GB Flash Drive</div><div class="desc">Preloaded with your photos</div></div>
+            <div class="amt">$20</div>
+          </div>
+          <div class="price-row">
+            <div><div class="name">32 GB Flash Drive</div><div class="desc">Best for very large orders</div></div>
+            <div class="amt">$30</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom">
+        <div class="contact-card">
+          <div class="eyebrow">Get started</div>
+          <h2>Ready to preserve your photos?</h2>
+          <p>Perfect for a flyer screenshot, a simple website, or a page you can share with family and local customers.</p>
+          <div class="contact-grid">
+            <div class="contact-box">
+              <div class="label">Website</div>
+              <div class="value">deltadigitization.com</div>
+            </div>
+            <div class="contact-box">
+              <div class="label">Phone</div>
+              <div class="value">440-954-1319</div>
+            </div>
+            <div class="contact-box">
+              <div class="label">Email</div>
+              <div class="value">ngiatis27@gmail.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="use-card">
+          <div class="eyebrow">Best uses</div>
+          <h3>Perfect for</h3>
+          <div class="chips">
+            <div class="chip">Family photo boxes</div>
+            <div class="chip">Old albums and keepsakes</div>
+            <div class="chip">Parents and grandparents</div>
+            <div class="chip">Long-term digital archiving</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="footer-space"></div>
+  </div>
+</body>
+</html>
