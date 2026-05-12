@@ -249,6 +249,78 @@
       box-shadow:0 6px 16px rgba(15,23,42,.08);
       font-size:18px;color:#334155;
     }
+
+    .hero-cta {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:#fde68a;
+      color:#78350f;
+      text-decoration:none;
+      font-weight:700;
+      border-radius:18px;
+      padding:16px 22px;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+      min-width:180px;
+      min-height:64px;
+      text-align:center;
+    }
+    .hero-cta:hover {
+      background:#fcd34d;
+    }
+    .quote-card {
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#ffffff;
+      box-shadow:0 10px 28px rgba(15,23,42,.08);
+      padding:34px;
+    }
+    .quote-form {
+      margin-top:28px;
+    }
+    .form-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+    .form-field {
+      margin-bottom:18px;
+    }
+    .form-field label {
+      display:block;
+      font-weight:700;
+      color:#1e293b;
+      margin-bottom:7px;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width:100%;
+      padding:14px 15px;
+      border:1px solid #cbd5e1;
+      border-radius:14px;
+      font-size:16px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#fff;
+    }
+    .form-field textarea {
+      resize:vertical;
+    }
+    .quote-submit {
+      width:100%;
+      border:none;
+      border-radius:16px;
+      background:var(--navy);
+      color:#ffffff;
+      padding:16px 20px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .quote-submit:hover {
+      background:var(--navy2);
+    }
+
     .footer-space{height:10px}
     @media (max-width: 900px){
       .hero-grid,.two,.pair,.pricing-grid,.bottom{grid-template-columns:1fr}
@@ -257,13 +329,15 @@
       .pricing-head{flex-direction:column;align-items:flex-start}
       .steps{grid-template-columns:1fr;gap:12px}
       .arrow{transform:rotate(90deg);justify-self:center}
+      .form-row{grid-template-columns:1fr}
+      .quote-card{padding:24px 18px}
     }
   </style>
 </head>
 <body>
   <div class="page">
     <section class="hero">
-      <div class="badge"><span class="delta">Δ</span> <span>Delta Digitization</span></div>
+      <div class="badge"><span class="delta">Î”</span> <span>Delta Digitization</span></div>
       <div class="hero-grid">
         <div>
           <h1>Preserve Your Family Memories</h1>
@@ -277,15 +351,16 @@
               <div class="label">High quality</div>
               <div class="value">600 DPI Available</div>
             </div>
+            <a href="#quote" class="hero-cta">Request a Free Quote</a>
           </div>
         </div>
         <div class="process">
           <div class="steps">
-            <div class="step"><div class="emoji">📷</div><div class="title">Old Photos</div></div>
-            <div class="arrow">→</div>
-            <div class="step"><div class="emoji">🖨️</div><div class="title">Scanning</div></div>
-            <div class="arrow">→</div>
-            <div class="step"><div class="emoji">💾</div><div class="title">Digital Files</div></div>
+            <div class="step"><div class="emoji">ðŸ“·</div><div class="title">Old Photos</div></div>
+            <div class="arrow">â†’</div>
+            <div class="step"><div class="emoji">ðŸ–¨ï¸</div><div class="title">Scanning</div></div>
+            <div class="arrow">â†’</div>
+            <div class="step"><div class="emoji">ðŸ’¾</div><div class="title">Digital Files</div></div>
           </div>
           <div class="note">Great for albums, boxes of family photos, keepsakes, and long-term archiving.</div>
         </div>
@@ -293,9 +368,9 @@
     </section>
     <section class="section">
       <div class="info-card">
-        <div class="info-head"><div class="info-icon">⭐</div><div>What Makes Us Different</div></div>
+        <div class="info-head"><div class="info-icon">â­</div><div>What Makes Us Different</div></div>
         <ul>
-          <li>Locally owned — your photos are handled with more care and personal attention, and can be conveniently dropped off or picked up.</li>
+          <li>Locally owned â€” your photos are handled with more care and personal attention, and can be conveniently dropped off or picked up.</li>
           <li>No worries about photos getting lost in shipping or damaged in transit.</li>
           <li>Flexible, personalized service to fit your specific needs</li>
         </ul>
@@ -305,7 +380,7 @@
     <section class="section">
       <div class="two">
         <div class="info-card">
-          <div class="info-head"><div class="info-icon">🕰️</div><div>Why Digitize?</div></div>
+          <div class="info-head"><div class="info-icon">ðŸ•°ï¸</div><div>Why Digitize?</div></div>
           <ul>
             <li>Photos fade, tear, and get lost over time.</li>
             <li>Digital copies make it easy to share with family.</li>
@@ -314,7 +389,7 @@
           </ul>
         </div>
         <div class="info-card">
-          <div class="info-head"><div class="info-icon">✨</div><div>What You Receive</div></div>
+          <div class="info-head"><div class="info-icon">âœ¨</div><div>What You Receive</div></div>
           <ul>
             <li>High-resolution digital image files</li>
             <li>300 DPI and 600 DPI scanning options</li>
@@ -417,6 +492,83 @@
             <div class="amt">$30</div>
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="quote">
+      <div class="quote-card">
+        <div class="center-head">
+          <h2>Request a Free Quote</h2>
+          <p>Tell us what you have and weâ€™ll follow up with pricing and the best way to get started.</p>
+        </div>
+
+        <form class="quote-form" action="https://formsubmit.co/deltadigitization@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Delta Digitization Quote Request">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="Name" required>
+            </div>
+
+            <div class="form-field">
+              <label for="phone">Phone *</label>
+              <input type="tel" id="phone" name="Phone" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="Email" required>
+          </div>
+
+          <div class="form-field">
+            <label for="items">What would you like digitized?</label>
+            <select id="items" name="What would you like digitized?">
+              <option value="">Select one</option>
+              <option>Loose photos</option>
+              <option>Album photos</option>
+              <option>VHS tapes</option>
+              <option>Loose photos and album photos</option>
+              <option>Photos and VHS tapes</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="quantity">About how many loose photos, album photos, or VHS tapes do you have?</label>
+            <input type="text" id="quantity" name="Estimated Quantity" placeholder="Example: 300 loose photos, 200 album photos, 10 VHS tapes">
+          </div>
+
+          <div class="form-field">
+            <label for="contactTime">Best Day/Time To Contact</label>
+            <input type="text" id="contactTime" name="Best Day/Time To Contact" placeholder="Example: Weekday evenings after 5 PM">
+          </div>
+
+          <div class="form-field">
+            <label for="hearAbout">How Did You Hear Of Us?</label>
+            <select id="hearAbout" name="How Did You Hear Of Us?">
+              <option value="">Select one</option>
+              <option>Google</option>
+              <option>Google Business Profile</option>
+              <option>Facebook</option>
+              <option>Referral / Word of Mouth</option>
+              <option>Flyer</option>
+              <option>Business Card</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="details">Project Details</label>
+            <textarea id="details" name="Project Details" rows="5" placeholder="Tell us anything helpful about your loose photos, album photos, or VHS tapes."></textarea>
+          </div>
+
+          <button type="submit" class="quote-submit">Submit Quote Request</button>
+        </form>
       </div>
     </section>
 
