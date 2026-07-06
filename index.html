@@ -1,641 +1,563 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Delta Digitization</title>
-  <style>
-    :root{
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --ink:#111827;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --navy:#0f172a;
-      --navy2:#1e293b;
-      --gold:#b45309;
-      --gold-soft:#fde68a;
-      --cream:#fff7ed;
-      --soft:#f8fafc;
-      --shadow:0 18px 40px rgba(15,23,42,.12);
-      --radius:24px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background:linear-gradient(180deg,#f8fafc 0%,#eef2f7 100%);
-      color:var(--ink);
-    }
-
-    .sale-bar{
-      background:#fde68a;
-      color:#78350f;
-      text-align:center;
-      font-weight:700;
-      font-size:17px;
-      padding:12px 16px;
-      letter-spacing:.02em;
-      border-bottom:1px solid rgba(120,53,15,.18);
-    }
-    .page{
-      max-width:1100px;
-      margin:30px auto;
-      background:var(--card);
-      border-radius:32px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      border:1px solid var(--line);
-    }
-    .hero{
-      background:linear-gradient(135deg,var(--navy) 0%, var(--navy2) 50%, var(--gold) 100%);
-      color:#fff;
-      padding:48px 48px 42px;
-      position:relative;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 16px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.16);
-      color:#fde68a;
-      font-size:14px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      backdrop-filter: blur(8px);
-    }
-    .delta{
-      width:28px;height:28px;border-radius:999px;
-      background:rgba(255,255,255,.16);
-      display:grid;place-items:center;
-      font-weight:700;font-size:18px;
-      border:1px solid rgba(255,255,255,.2);
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .95fr;
-      gap:32px;
-      align-items:center;
-      margin-top:18px;
-    }
-    h1{
-      margin:14px 0 12px;
-      font-size:56px;
-      line-height:1.02;
-      letter-spacing:-.03em;
-    }
-    .lead{
-      margin:0;
-      color:#fde68a;
-      font-size:21px;
-      line-height:1.6;
-      max-width:700px;
-    }
-    .quick{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:26px;
-    }
-    .quick .box{
-      background:#fff;
-      color:var(--ink);
-      border-radius:18px;
-      padding:16px 18px;
-      min-width:180px;
-      box-shadow:0 10px 24px rgba(0,0,0,.14);
-    }
-    .quick .box.dark{
-      background:rgba(255,255,255,.10);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:none;
-    }
-    .quick .label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#6b7280}
-    .quick .dark .label{color:#fde68a}
-    .quick .value{font-size:28px;font-weight:700;margin-top:6px}
-    .process{
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:28px;
-      padding:22px;
-      backdrop-filter: blur(8px);
-    }
-    .steps{
-      display:grid;
-      grid-template-columns:1fr auto 1fr auto 1fr;
-      gap:10px;
-      align-items:center;
-      text-align:center;
-    }
-    .step{
-      background:#fff;
-      color:var(--ink);
-      border-radius:22px;
-      padding:20px 14px;
-      box-shadow:0 10px 24px rgba(0,0,0,.12);
-      min-height:124px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .step .emoji{font-size:30px}
-    .step .title{margin-top:10px;font-size:18px;font-weight:700}
-    .arrow{font-size:30px;color:#fde68a}
-    .note{
-      margin-top:14px;
-      border-radius:18px;
-      padding:14px 16px;
-      background:rgba(15,23,42,.45);
-      color:#f8fafc;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .section{padding:42px 48px}
-    .two{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-    }
-    .info-card,.pricing-card,.contact-card,.use-card,.photo-card{
-      border:1px solid var(--line);
-      border-radius:26px;
-      background:#fff;
-      box-shadow:0 6px 18px rgba(15,23,42,.05);
-    }
-    .info-card{padding:26px;background:#fcfcfd}
-    .info-head{
-      display:flex;align-items:center;gap:14px;margin-bottom:16px;
-      font-size:28px;font-weight:700;
-    }
-    .info-icon{
-      width:52px;height:52px;border-radius:18px;background:#fde68a;
-      display:grid;place-items:center;font-size:24px;
-    }
-    .info-card ul{margin:0;padding-left:20px;color:#475569;line-height:1.8;font-size:18px}
-    .center-head{text-align:center}
-    .center-head h2{
-      font-size:42px;margin:0;color:var(--ink);letter-spacing:-.03em;
-    }
-    .center-head p{
-      margin:10px auto 0;max-width:760px;color:var(--muted);font-size:19px;line-height:1.7;
-    }
-    .pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
-    .photo-card{padding:16px}
-    .photo-label{
-      text-transform:uppercase;letter-spacing:.12em;font-size:12px;
-      color:#6b7280;font-weight:700;
-    }
-    .photo-label.after{color:#92400e}
-    .photo-card img{
-      margin-top:12px;width:100%;display:block;border-radius:18px;
-      object-fit:cover;background:#f3f4f6;
-      max-height:480px;
-    }
-    .photo-card p{margin:12px 2px 4px;color:var(--muted);line-height:1.6}
-    .pricing-wrap{
-      background:#f8fafc;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-    }
-    .pricing-head{
-      display:flex;justify-content:space-between;align-items:end;gap:20px;
-    }
-    .pricing-head h2{margin:0;font-size:40px;letter-spacing:-.03em}
-    .pricing-head p{margin:8px 0 0;color:var(--muted);font-size:18px}
-    .rec{
-      background:#fde68a;border-radius:16px;padding:12px 16px;
-      font-weight:700;color:#78350f;font-size:15px;
-    }
-    .pricing-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px;
-    }
-    .vhs-small{
-      max-width:360px;
-      margin:22px auto 0;
-    }
-    .pricing-card{overflow:hidden}
-    .pricing-card .top{padding:22px 22px 16px;border-bottom:1px solid var(--line)}
-    .pricing-card h3{margin:0;font-size:28px}
-    .pricing-card .sub{margin-top:6px;color:var(--muted)}
-    .price-row{
-      display:flex;justify-content:space-between;gap:12px;align-items:center;
-      padding:18px 22px;border-top:1px solid var(--line);
-    }
-    .price-row:first-of-type{border-top:none}
-    .price-row .name{font-weight:700;font-size:19px}
-    .price-row .desc{margin-top:4px;color:var(--muted);font-size:14px}
-    .price-row .amt{font-weight:700;font-size:26px;white-space:nowrap;text-align:right}
-    .bottom{
-      display:grid;grid-template-columns:1.2fr .8fr;gap:24px;
-    }
-    .contact-card{
-      background:var(--navy);
-      color:#fff;
-      padding:28px;
-      box-shadow:0 18px 40px rgba(15,23,42,.18);
-    }
-    .eyebrow{
-      text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:#fde68a;font-weight:700;
-    }
-    .contact-card h2{margin:10px 0 0;font-size:38px;letter-spacing:-.03em}
-    .contact-card p{color:#fcd34d;line-height:1.7;font-size:18px}
-    .contact-grid{display:grid;gap:14px;margin-top:18px}
-    .contact-box{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;padding:16px 18px;
-    }
-    .contact-box .label{font-size:13px;color:#fcd34d;text-transform:uppercase;letter-spacing:.12em}
-    .contact-box .value{font-size:22px;font-weight:700;margin-top:6px;word-break:break-word}
-    .use-card{
-      padding:28px;
-      background:linear-gradient(135deg,#fde68a 0%, #f8fafc 100%);
-    }
-    .use-card .eyebrow{color:#6b7280}
-    .use-card h3{margin:10px 0 0;font-size:34px;letter-spacing:-.03em}
-    .chips{display:grid;gap:12px;margin-top:18px}
-    .chip{
-      background:rgba(255,255,255,.85);
-      border-radius:16px;padding:14px 16px;
-      box-shadow:0 6px 16px rgba(15,23,42,.08);
-      font-size:18px;color:#334155;
-    }
-
-    .hero-cta {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:#fde68a;
-      color:#78350f;
-      text-decoration:none;
-      font-weight:700;
-      border-radius:18px;
-      padding:16px 22px;
-      box-shadow:0 10px 24px rgba(0,0,0,.14);
-      min-width:180px;
-      min-height:64px;
-      text-align:center;
-    }
-    .hero-cta:hover {
-      background:#fcd34d;
-    }
-    .quote-card {
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:#ffffff;
-      box-shadow:0 10px 28px rgba(15,23,42,.08);
-      padding:34px;
-    }
-    .quote-form {
-      margin-top:28px;
-    }
-    .form-row {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-    .form-field {
-      margin-bottom:18px;
-    }
-    .form-field label {
-      display:block;
-      font-weight:700;
-      color:#1e293b;
-      margin-bottom:7px;
-    }
-    .form-field input,
-    .form-field select,
-    .form-field textarea {
-      width:100%;
-      padding:14px 15px;
-      border:1px solid #cbd5e1;
-      border-radius:14px;
-      font-size:16px;
-      font-family:Arial, Helvetica, sans-serif;
-      background:#fff;
-    }
-    .form-field textarea {
-      resize:vertical;
-    }
-    .quote-submit {
-      width:100%;
-      border:none;
-      border-radius:16px;
-      background:var(--navy);
-      color:#ffffff;
-      padding:16px 20px;
-      font-size:18px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .quote-submit:hover {
-      background:var(--navy2);
-    }
-
-    .footer-space{height:10px}
-    @media (max-width: 900px){
-      .price-row .amt{font-size:24px}
-      .hero-grid,.two,.pair,.pricing-grid,.bottom{grid-template-columns:1fr}
-      h1{font-size:42px}
-      .section,.hero{padding:28px 22px}
-      .pricing-head{flex-direction:column;align-items:flex-start}
-      .steps{grid-template-columns:1fr;gap:12px}
-      .arrow{transform:rotate(90deg);justify-self:center}
-      .form-row{grid-template-columns:1fr}
-      .quote-card{padding:24px 18px}
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Delta Digitization Visual Website Mockup</title>
+<style>
+:root{
+  --navy:#0D3568;
+  --navy2:#174E8F;
+  --blue:#57A9F2;
+  --light:#EAF5FF;
+  --ice:#F7FBFF;
+  --white:#FFFFFF;
+  --text:#14304A;
+  --muted:#5D7187;
+  --border:#D3E9FC;
+  --shadow:0 18px 45px rgba(13,53,104,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(87,169,242,.28), transparent 35%),
+    linear-gradient(180deg,#F7FBFF,#EAF5FF 70%,#FFFFFF);
+  color:var(--text);
+  min-height:100vh;
+}
+.mock-browser{
+  max-width:1280px;
+  margin:28px auto;
+  border-radius:26px;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 30px 80px rgba(13,53,104,.22);
+  border:1px solid #D6EAFE;
+}
+.browser-top{
+  height:42px;
+  background:#E9F3FC;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 18px;
+  border-bottom:1px solid #D4E6F7;
+}
+.dot{width:12px;height:12px;border-radius:50%;background:#9AC7EF}
+.dot:nth-child(2){background:#67B4F4}
+.dot:nth-child(3){background:#0D3568}
+.url{
+  margin-left:12px;
+  background:white;
+  border:1px solid #CDE4F8;
+  color:#6B7F93;
+  height:26px;
+  border-radius:999px;
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  font-size:13px;
+}
+.sale{
+  background:linear-gradient(90deg,var(--navy),var(--blue));
+  color:white;
+  text-align:center;
+  padding:10px 16px;
+  font-weight:900;
+}
+header{
+  background:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 44px;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.logo-block{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo-mark{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:900;
+  font-size:22px;
+  box-shadow:0 8px 20px rgba(13,53,104,.22);
+}
+.logo h1{
+  font-size:27px;
+  color:var(--navy);
+  line-height:1;
+  letter-spacing:-.7px;
+}
+.logo p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+  text-transform:uppercase;
+  letter-spacing:1.1px;
+  font-weight:800;
+}
+.tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.tab{
+  border:0;
+  background:#F1F8FF;
+  color:var(--navy);
+  font-weight:900;
+  padding:10px 13px;
+  border-radius:999px;
+  cursor:pointer;
+  border:1px solid #D7ECFF;
+}
+.tab.active{
+  background:var(--navy);
+  color:white;
+  box-shadow:0 8px 18px rgba(13,53,104,.22);
+}
+.quote-tab{
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
+}
+.page{
+  display:none;
+  min-height:680px;
+  animation:fade .22s ease-in-out;
+}
+.page.active{display:block}
+@keyframes fade{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.inner{
+  padding:42px 44px 52px;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:36px;
+  align-items:center;
+}
+.eyebrow{
+  display:inline-block;
+  color:var(--navy);
+  background:#E2F1FF;
+  border:1px solid #CBE7FF;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:13px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:900;
+  margin-bottom:16px;
+}
+h2.hero-title{
+  font-size:58px;
+  color:var(--navy);
+  line-height:.98;
+  letter-spacing:-2px;
+  margin-bottom:18px;
+}
+.lead{
+  font-size:19px;
+  color:#455E76;
+  max-width:640px;
+  margin-bottom:22px;
+}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.pill{
+  background:white;
+  border:1px solid var(--border);
+  color:var(--navy);
+  padding:10px 13px;
+  border-radius:999px;
+  font-weight:900;
+  box-shadow:0 5px 14px rgba(13,53,104,.07);
+}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-block;
+  padding:15px 22px;
+  border-radius:14px;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+}
+.btn.primary{background:var(--navy);color:white;box-shadow:0 7px 0 #082649}
+.btn.secondary{background:white;color:var(--navy);border:2px solid var(--navy)}
+.hero-art{
+  min-height:460px;
+  border-radius:32px;
+  background:
+    radial-gradient(circle at 80% 15%, rgba(87,169,242,.35), transparent 22%),
+    linear-gradient(135deg,#FFFFFF,#DFF0FF);
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.photo{
+  position:absolute;
+  background:white;
+  border:10px solid white;
+  border-bottom:44px solid white;
+  border-radius:10px;
+  box-shadow:0 18px 38px rgba(13,53,104,.22);
+}
+.photo:before{
+  content:"";
+  display:block;
+  height:100%;
+  background:
+    radial-gradient(circle at 32% 36%,#F5BE91 0 12%,transparent 13%),
+    radial-gradient(circle at 66% 35%,#C88454 0 12%,transparent 13%),
+    linear-gradient(135deg,#A4C6E8,#F8D4AF 55%,#78A8D6);
+}
+.photo.one{width:245px;height:280px;left:58px;top:70px;transform:rotate(-9deg)}
+.photo.two{width:255px;height:292px;right:52px;top:92px;transform:rotate(8deg)}
+.vhs{
+  width:290px;height:154px;background:#18385D;border-radius:18px;
+  position:absolute;left:155px;bottom:42px;
+  padding:18px;box-shadow:0 20px 42px rgba(13,53,104,.28);
+}
+.vhs-label{background:white;color:var(--navy);font-weight:900;border-radius:9px;height:52px;padding:13px;margin-bottom:18px}
+.reels{display:flex;justify-content:space-between}
+.reel{width:44px;height:44px;border-radius:50%;background:#4E78A7;border:8px solid #B7D9F8}
+.trust{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:30px;
+}
+.trust div{
+  background:var(--navy);
+  color:white;
+  border-radius:18px;
+  padding:17px;
+  text-align:center;
+  font-weight:900;
+}
+.section-head{text-align:center;margin-bottom:28px}
+.section-head h2{font-size:42px;color:var(--navy);letter-spacing:-1px;margin-bottom:8px}
+.section-head p{font-size:18px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cards.four{grid-template-columns:repeat(4,1fr)}
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:26px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.card:before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;height:7px;
+  background:linear-gradient(90deg,var(--navy),var(--blue));
+}
+.icon{
+  width:58px;height:58px;border-radius:18px;background:var(--light);
+  display:grid;place-items:center;font-size:28px;margin-bottom:16px;
+}
+.card h3{font-size:24px;color:var(--navy);margin-bottom:9px}
+.card p{color:var(--muted);margin-bottom:13px}
+.price{font-size:22px;font-weight:900;color:var(--blue)}
+.step-number{
+  width:44px;height:44px;border-radius:50%;background:var(--navy);color:white;
+  display:grid;place-items:center;font-weight:900;margin-bottom:14px;
+}
+.price-card .big{font-size:36px;color:var(--navy);font-weight:900;margin-bottom:6px}
+.badge{display:inline-block;background:var(--blue);color:white;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:900;margin-bottom:10px}
+.recommended{border:2px solid var(--blue);transform:translateY(-7px)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.compare-img{
+  height:255px;border-radius:18px;margin-bottom:16px;
+  background:
+    radial-gradient(circle at 36% 35%,#8E6450 0 12%,transparent 13%),
+    radial-gradient(circle at 65% 35%,#6F5948 0 12%,transparent 13%),
+    linear-gradient(135deg,#9A9187,#BFAE91);
+  filter:sepia(.35) contrast(.85);
+}
+.compare-img.after{
+  filter:none;
+  background:
+    radial-gradient(circle at 36% 35%,#F4BE91 0 12%,transparent 13%),
+    radial-gradient(circle at 65% 35%,#C88454 0 12%,transparent 13%),
+    linear-gradient(135deg,#93C2ED,#EAF5FF 55%,#BFDDF7);
+}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+ul{padding-left:20px;color:var(--muted)}
+li{margin-bottom:8px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.form-card{
+  background:var(--navy);
+  color:white;
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+}
+.form-card h2{font-size:34px;margin-bottom:8px}
+.form-card p{color:#DCEFFF;margin-bottom:18px}
+input,select,textarea{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:14px 15px;
+  margin-bottom:12px;
+  font-size:15px;
+}
+textarea{min-height:104px;resize:vertical}
+.submit{background:var(--blue);color:white;border:0;width:100%;border-radius:13px;padding:15px;font-weight:900;font-size:16px}
+.footer{
+  background:var(--navy);
+  color:white;
+  padding:24px 44px;
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.footer p{color:#DCEFFF}
+.small-links{display:flex;gap:14px;flex-wrap:wrap}
+.small-links button{background:transparent;border:0;color:#DCEFFF;font-weight:800;cursor:pointer}
+@media(max-width:950px){
+  .mock-browser{margin:0;border-radius:0}
+  header{padding:16px 20px}
+  .inner{padding:28px 18px 40px}
+  .hero,.cards,.cards.four,.compare,.about-grid,.form-grid,.trust{grid-template-columns:1fr}
+  h2.hero-title{font-size:42px}
+  .hero-art{min-height:365px}
+  .photo.one{width:195px;height:230px;left:32px;top:50px}
+  .photo.two{width:205px;height:240px;right:24px;top:78px}
+  .vhs{left:64px;bottom:30px;width:235px}
+}
+</style>
 </head>
 <body>
-  <div class="sale-bar">☀️ Summer Sale: Save 15% on your next order!</div>
-  <div class="page">
-    <section class="hero">
-      <div class="badge"><span class="delta">&#916;</span> <span>Delta Digitization</span></div>
-      <div class="hero-grid">
-        <div>
-          <h1>Preserve Your Family Memories</h1>
-          <p class="lead">Turn old printed photos into high-quality digital files that can be shared, backed up, and passed down for generations.</p>
-          <div class="quick">
-            <div class="box">
-              <div class="label">Starting at</div>
-              <div class="value">$0.30 / photo</div>
-            </div>
-            <div class="box dark">
-              <div class="label">High quality</div>
-              <div class="value">600 DPI Available</div>
-            </div>
-            <a href="#quote" class="hero-cta">Request a Free Quote</a>
-          </div>
-        </div>
-        <div class="process">
-          <div class="steps">
-            <div class="step"><div class="emoji">&#128247;</div><div class="title">Old Photos</div></div>
-            <div class="arrow">&#8594;</div>
-            <div class="step"><div class="emoji">&#128424;&#65039;</div><div class="title">Scanning</div></div>
-            <div class="arrow">&#8594;</div>
-            <div class="step"><div class="emoji">&#128190;</div><div class="title">Digital Files</div></div>
-          </div>
-          <div class="note">Great for albums, boxes of family photos, keepsakes, and long-term archiving.</div>
-        </div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="info-card">
-        <div class="info-head"><div class="info-icon">&#11088;</div><div>What Makes Us Different</div></div>
-        <ul>
-          <li>Locally owned out of Northeast Ohio &#8212; your photos are handled with more care and personal attention, and can be conveniently dropped off or picked up.</li>
-          <li>No worries about photos getting lost in shipping or damaged in transit.</li>
-          <li>Flexible, personalized service to fit your specific needs</li>
-          <li>All work archived and saved for up to a month on our database just incase you lose it</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="two">
-        <div class="info-card">
-          <div class="info-head"><div class="info-icon">&#128368;&#65039;</div><div>Why Digitize?</div></div>
-          <ul>
-            <li>Photos fade, tear, and get lost over time.</li>
-            <li>Digital copies make it easy to share with family.</li>
-            <li>You can safely back up important memories forever.</li>
-            <li>Old albums and photo boxes become easier to organize and view.</li>
-          </ul>
-        </div>
-        <div class="info-card">
-          <div class="info-head"><div class="info-icon">&#10024;</div><div>What You Receive</div></div>
-          <ul>
-            <li>High-resolution digital image files</li>
-            <li>300 DPI and 600 DPI scanning options</li>
-            <li>Organized folders for easier viewing</li>
-            <li>USB flash drive delivery with photos preloaded onto them</li>
-            <li>All photos are returned in the same order they were given to us</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="center-head">
-        <h2>Before &amp; After</h2>
-        <p>Old photos can look faded or damaged. Digitizing preserves and enhances them for the future.</p>
-      </div>
-
-      <div class="pair">
-        <div class="photo-card">
-          <div class="photo-label">Before</div>
-          <img src="before_dance.jpg" alt="Original dark event photo" />
-          <p>Original scanned photo with fading, red eyes, and low visibility.</p>
-        </div>
-        <div class="photo-card">
-          <div class="photo-label after">After</div>
-          <img src="after_dance.jpg" alt="Enhanced event photo" />
-          <p>Digitized and enhanced for better brightness, clarity, and red eye reduction.</p>
-        </div>
-      </div>
-
-      <div class="pair">
-        <div class="photo-card">
-          <div class="photo-label">Before</div>
-          <img src="Yiayia_ORIG.jpg" alt="Original family garden photo" />
-          <p>Original photo with color fading and aging artifacts.</p>
-        </div>
-        <div class="photo-card">
-          <div class="photo-label after">After</div>
-          <img src="Yiayia_Fix.jpg" alt="Restored family garden photo" />
-          <p>Cleaned and digitized version ready for long-term archiving.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section pricing-wrap">
-      <div class="pricing-head">
-        <div>
-          <h2>Simple Pricing</h2>
-          <p>Clear pricing for loose photos and album photo handling.</p>
-        </div>
-        <div class="rec">Recommended: 600 DPI for long-term archiving</div>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="top">
-            <h3>Loose Photos</h3>
-            <div class="sub">Photos not in albums</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">300 DPI</div><div class="desc">Standard quality</div></div>
-            <div class="amt">$0.30 / photo</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">600 DPI</div><div class="desc">High quality</div></div>
-            <div class="amt">$0.35 / photo</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">Bulk Discount</div><div class="desc">Orders of 500+ photos (applies to both loose and album photos)</div></div>
-            <div class="amt">- $0.05 / photo</div>
-          </div>
-        </div>
-
-        <div class="pricing-card">
-          <div class="top">
-            <h3>Album Photos</h3>
-            <div class="sub">For photos that are in albums and need careful handling</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">Remove each photo</div><div class="desc"> Carefully pulled out in the same order</div></div>
-            <div class="amt">+$0.20 / photo</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">Reinsert each photo</div><div class="desc">Carefully placed back exactly as received</div></div>
-            <div class="amt">+$0.10 optional</div>
-          </div>
-        </div>
-
-        <div class="pricing-card">
-          <div class="top">
-            <h3>Delivery Option</h3>
-            <div class="sub">USB Flash Drive</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">64 GB Flash Drive</div><div class="desc">Preloaded with your photos</div></div>
-            <div class="amt">$15</div>
-          </div>
-          <div class="price-row">
-            <div><div class="name">128 GB Flash Drive</div><div class="desc">Best for very large orders</div></div>
-            <div class="amt">$25</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-card vhs-small">
-        <div class="top">
-          <h3>VHS Tapes</h3>
-          <div class="sub">Home movies and old tape memories</div>
-        </div>
-        <div class="price-row">
-          <div><div class="name">Tape Digitizing</div><div class="desc">Per 30 minutes of tape</div></div>
-          <div class="amt">$5</div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="section" id="quote">
-      <div class="quote-card">
-        <div class="center-head">
-          <h2>Request a Free Quote</h2>
-          <p>Tell us what you have and we&#8217;ll follow up with pricing and the best way to get started.</p>
-        </div>
-
-        <form class="quote-form" action="https://formsubmit.co/deltadigitization@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Delta Digitization Quote Request">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="name">Name *</label>
-              <input type="text" id="name" name="Name" required>
-            </div>
-
-            <div class="form-field">
-              <label for="phone">Phone *</label>
-              <input type="tel" id="phone" name="Phone" required>
-            </div>
-          </div>
-
-          <div class="form-field">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="Email" required>
-          </div>
-
-          <div class="form-field">
-            <label for="items">What would you like digitized?</label>
-            <select id="items" name="What would you like digitized?">
-              <option value="">Select one</option>
-              <option>Loose photos</option>
-              <option>Album photos</option>
-              <option>VHS tapes</option>
-              <option>Loose photos and album photos</option>
-              <option>Photos and VHS tapes</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="quantity">About how many loose photos, album photos, or VHS tapes do you have?</label>
-            <input type="text" id="quantity" name="Estimated Quantity" placeholder="Example: 300 loose photos, 200 album photos, 10 VHS tapes">
-          </div>
-
-          <div class="form-field">
-            <label for="contactTime">Best Day/Time To Contact</label>
-            <input type="text" id="contactTime" name="Best Day/Time To Contact" placeholder="Example: Weekday evenings after 5 PM">
-          </div>
-
-          <div class="form-field">
-            <label for="hearAbout">How Did You Hear Of Us?</label>
-            <select id="hearAbout" name="How Did You Hear Of Us?">
-              <option value="">Select one</option>
-              <option>Google</option>
-              <option>Google Business Profile</option>
-              <option>Facebook</option>
-              <option>Referral / Word of Mouth</option>
-              <option>Flyer</option>
-              <option>Business Card</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="details">Project Details</label>
-            <textarea id="details" name="Project Details" rows="5" placeholder="Tell us anything helpful about your loose photos, album photos, or VHS tapes."></textarea>
-          </div>
-
-          <button type="submit" class="quote-submit">Submit Quote Request</button>
-        </form>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="bottom">
-        <div class="contact-card">
-          <div class="eyebrow">Get started</div>
-          <h2>Ready to preserve your photos?</h2>
-          <p>As a locally owned business, your photos are handled with care, stay in the area, and never risk being lost or damaged in shipping. We work directly with you to make sure everything is done exactly how you want.</p>
-          <div class="contact-grid">
-            <div class="contact-box">
-              <div class="label">Website</div>
-              <div class="value">deltadigitization.com</div>
-            </div>
-            <div class="contact-box">
-              <div class="label">Phone</div>
-              <div class="value">216-626-5242</div>
-            </div>
-            <div class="contact-box">
-              <div class="label">Email</div>
-              <div class="value">deltadigitization@gmail.com</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="use-card">
-          <div class="eyebrow">Best uses</div>
-          <h3>Perfect for</h3>
-          <div class="chips">
-            <div class="chip">Family photo boxes</div>
-            <div class="chip">Old albums and keepsakes</div>
-            <div class="chip">Parents and grandparents</div>
-            <div class="chip">Long-term digital archiving</div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="footer-space"></div>
+<div class="mock-browser">
+  <div class="browser-top">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="url">deltadigitization.com</div>
   </div>
+
+  <div class="sale">Summer Sale — Save 15% on your next order</div>
+
+  <header>
+    <div class="logo-block">
+      <div class="logo-mark">Δ</div>
+      <div class="logo">
+        <h1>Delta Digitization</h1>
+        <p>Photos • Albums • VHS</p>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-page="home">Home</button>
+      <button class="tab" data-page="how">How It Works</button>
+      <button class="tab" data-page="pricing">Pricing</button>
+      <button class="tab" data-page="before">Before & After</button>
+      <button class="tab" data-page="about">About Us</button>
+      <button class="tab quote-tab" data-page="quote">Free Quote</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page active" id="home">
+      <div class="inner">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Local Northeast Ohio Service</div>
+            <h2 class="hero-title">Preserve your family memories before they fade.</h2>
+            <p class="lead">Old photos, albums, and VHS tapes should not stay hidden in a box. Delta Digitization turns them into digital files you can save, share, and enjoy for years to come.</p>
+            <div class="pills">
+              <div class="pill">Photos start at $0.30</div>
+              <div class="pill">VHS $5 / 30 minutes</div>
+              <div class="pill">No shipping needed</div>
+              <div class="pill">USB delivery available</div>
+            </div>
+            <div class="btn-row">
+              <button class="btn primary" data-page="quote">Get a Free Quote</button>
+              <button class="btn secondary" data-page="pricing">View Pricing</button>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="photo one"></div>
+            <div class="photo two"></div>
+            <div class="vhs">
+              <div class="vhs-label">Family VHS Tape</div>
+              <div class="reels"><div class="reel"></div><div class="reel"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trust">
+          <div>✓ No Shipping Needed</div>
+          <div>✓ Local Drop-Off</div>
+          <div>✓ Returned In Order</div>
+          <div>✓ Files Saved 1 Month</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="how">
+      <div class="inner">
+        <div class="section-head">
+          <h2>How It Works</h2>
+          <p>Easy process, personal service, and no shipping required.</p>
+        </div>
+        <div class="cards four">
+          <div class="card"><div class="step-number">1</div><h3>Tell Us What You Have</h3><p>Send a quote request with your photos, albums, or VHS tapes.</p></div>
+          <div class="card"><div class="step-number">2</div><h3>We Review It</h3><p>We follow up with pricing and the best way to get started.</p></div>
+          <div class="card"><div class="step-number">3</div><h3>We Digitize Carefully</h3><p>Your items are handled carefully and kept organized.</p></div>
+          <div class="card"><div class="step-number">4</div><h3>You Get Everything Back</h3><p>You receive your originals and your new digital files.</p></div>
+        </div>
+        <div style="height:28px"></div>
+        <div class="cards">
+          <div class="card"><div class="icon">🗂️</div><h3>Family Photo Boxes</h3><p>Perfect for stacks of older family photos.</p></div>
+          <div class="card"><div class="icon">📖</div><h3>Old Albums</h3><p>Keep album photos organized in the same order.</p></div>
+          <div class="card"><div class="icon">📼</div><h3>Home Videos</h3><p>Preserve old VHS memories before tapes wear out.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="pricing">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Simple Pricing</h2>
+          <p>Clear pricing for photos, album photos, VHS tapes, and USB delivery.</p>
+        </div>
+        <div class="cards four">
+          <div class="card price-card"><h3>Loose Photos</h3><div class="big">$0.30</div><p>Per photo at 300 DPI. Good for standard digital copies.</p></div>
+          <div class="card price-card recommended"><span class="badge">Recommended</span><h3>Loose Photos</h3><div class="big">$0.35</div><p>Per photo at 600 DPI. Better for long-term archiving.</p></div>
+          <div class="card price-card"><h3>Bulk Orders</h3><div class="big">-$0.05</div><p>Per photo discount on orders of 500+ photos.</p></div>
+          <div class="card price-card"><h3>VHS Transfer</h3><div class="big">$5</div><p>Per 30 minutes of tape. Great for home movies.</p></div>
+          <div class="card price-card"><h3>Album Removal</h3><div class="big">+$0.20</div><p>Per photo to carefully remove photos from albums.</p></div>
+          <div class="card price-card"><h3>Album Reinsert</h3><div class="big">+$0.10</div><p>Optional per photo service to place photos back.</p></div>
+          <div class="card price-card"><h3>64 GB USB</h3><div class="big">$15</div><p>Preloaded with your digital files.</p></div>
+          <div class="card price-card"><h3>128 GB USB</h3><div class="big">$25</div><p>Best for larger orders.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="before">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Before & After</h2>
+          <p>Use this section for your real examples as you add more photos.</p>
+        </div>
+        <div class="compare">
+          <div class="card"><div class="compare-img"></div><h3>Before</h3><p>Original photo with fading, red eyes, discoloration, or low visibility.</p></div>
+          <div class="card"><div class="compare-img after"></div><h3>After</h3><p>Digitized and enhanced for better brightness, clarity, and long-term saving.</p></div>
+        </div>
+        <div style="height:28px"></div>
+        <div class="card">
+          <h3>Don’t Wait Until Photos Fade More</h3>
+          <p>Old photos can become damaged, lost, or harder to restore over time. Digitizing gives your family a backup before those memories disappear.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="about">
+      <div class="inner">
+        <div class="about-grid">
+          <div class="card">
+            <h3>Local Memory Preservation</h3>
+            <p>Delta Digitization was created to help families preserve old photos, albums, and VHS tapes without having to ship them away.</p>
+            <p>These items are personal. They may be the only copy you have of a parent, grandparent, wedding, childhood memory, or home video.</p>
+            <p>Your photos stay close to home, your project is handled with care, and your original items are returned to you.</p>
+          </div>
+          <div class="card">
+            <h3>Why Local Matters</h3>
+            <ul>
+              <li>No shipping required</li>
+              <li>Personal communication</li>
+              <li>Careful handling of photos and tapes</li>
+              <li>Simple, clear pricing</li>
+              <li>Great for families with boxes of old memories</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="quote">
+      <div class="inner">
+        <div class="form-grid">
+          <div class="card">
+            <h3>Request a Free Quote</h3>
+            <p>Tell us what you have, and we’ll follow up with pricing and the best way to get started.</p>
+            <ul>
+              <li>Loose photos</li>
+              <li>Album photos</li>
+              <li>VHS tapes</li>
+              <li>Loose photos and album photos</li>
+              <li>Photos and VHS tapes</li>
+              <li>Not sure yet</li>
+            </ul>
+            <div style="margin-top:22px" class="pills">
+              <div class="pill">Call/Text: 216-626-5242</div>
+              <div class="pill">deltadigitization@gmail.com</div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h2>Free Quote Form</h2>
+            <p>We can start simple now and add more later.</p>
+            <input placeholder="Name*" />
+            <input placeholder="Phone*" />
+            <input placeholder="Email*" />
+            <select><option>What would you like digitized?</option><option>Loose photos</option><option>Album photos</option><option>VHS tapes</option><option>Photos and VHS tapes</option><option>Not sure yet</option></select>
+            <input placeholder="About how many photos, albums, or VHS tapes?" />
+            <input placeholder="Best day/time to contact" />
+            <select><option>How did you hear of us?</option><option>Google</option><option>Google Business Profile</option><option>Facebook</option><option>Referral / Word of Mouth</option><option>Flyer</option><option>Business Card</option><option>Other</option></select>
+            <textarea placeholder="Project details"></textarea>
+            <button class="submit">Submit Quote Request</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    <div>
+      <strong>Delta Digitization</strong>
+      <p>Photos • Albums • VHS</p>
+    </div>
+    <div class="small-links">
+      <button data-page="home">Home</button>
+      <button data-page="pricing">Pricing</button>
+      <button data-page="before">Before & After</button>
+      <button data-page="quote">Quote</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const buttons = document.querySelectorAll('[data-page]');
+const pages = document.querySelectorAll('.page');
+const tabs = document.querySelectorAll('.tab');
+
+function showPage(id){
+  pages.forEach(p => p.classList.toggle('active', p.id === id));
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.page === id));
+  document.querySelector('.mock-browser').scrollIntoView({behavior:'smooth', block:'start'});
+}
+buttons.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+</script>
 </body>
 </html>
