@@ -421,6 +421,24 @@ textarea{min-height:104px;resize:vertical}
   object-fit:cover;
 }
 
+
+.form-trust-line{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  padding:12px;
+  color:#DCEFFF;
+  font-size:14px;
+  margin-bottom:16px;
+}
+
+.after-submit-note{
+  color:#DCEFFF;
+  font-size:14px;
+  margin-top:12px;
+  text-align:center;
+}
+
 @media(max-width:950px){
   .mock-browser{margin:0;border-radius:0}
   header{padding:16px 20px}
@@ -491,6 +509,7 @@ src="https://www.facebook.com/tr?id=1379087847441267&ev=PageView&noscript=1"
             </div>
             <div class="btn-row">
               <button class="btn primary" data-page="quote">Get a Free Quote</button>
+              <a class="btn secondary" href="tel:2166265242">Call or Text 216-626-5242</a>
               <button class="btn secondary" data-page="pricing">View Pricing</button>
             </div>
           </div>
@@ -663,6 +682,7 @@ src="https://www.facebook.com/tr?id=1379087847441267&ev=PageView&noscript=1"
       <div class="form-card">
         <h2>Free Quote Form</h2>
         <p>Tell us what you have, and we’ll follow up with pricing.</p>
+        <p class="form-trust-line">Your photos and tapes are handled carefully and never shared. Original items are returned with your completed digital files.</p>
 
         <form class="quote-form" action="https://formsubmit.co/deltadigitization@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="New Delta Digitization Quote Request">
@@ -727,6 +747,7 @@ src="https://www.facebook.com/tr?id=1379087847441267&ev=PageView&noscript=1"
           </div>
 
           <button type="submit" class="submit">Submit Quote Request</button>
+          <p class="after-submit-note">We’ll review your request and contact you with a rough estimate and next steps.</p>
         </form>
       </div>
     </div>
