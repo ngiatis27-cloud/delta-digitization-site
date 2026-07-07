@@ -318,7 +318,6 @@ textarea{min-height:104px;resize:vertical}
   grid-template-columns:repeat(3,1fr);
   gap:22px;
 }
-
 .ba-card{
   background:white;
   border:1px solid var(--border);
@@ -328,34 +327,26 @@ textarea{min-height:104px;resize:vertical}
   position:relative;
   overflow:hidden;
 }
-
 .ba-card:before{
   content:"";
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:7px;
+  top:0;left:0;right:0;height:7px;
   background:linear-gradient(90deg,var(--navy),var(--blue));
 }
-
 .ba-card h3{
   color:var(--navy);
   font-size:22px;
   margin:10px 0 8px;
 }
-
 .ba-card p{
   color:var(--muted);
   margin-bottom:16px;
 }
-
 .ba-pair{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-
 .ba-slot{
   border:2px dashed #BBDDF8;
   background:#F5FAFF;
@@ -365,7 +356,6 @@ textarea{min-height:104px;resize:vertical}
   display:flex;
   flex-direction:column;
 }
-
 .ba-slot img{
   width:100%;
   height:170px;
@@ -373,7 +363,6 @@ textarea{min-height:104px;resize:vertical}
   display:block;
   background:linear-gradient(135deg,#EAF5FF,#FFFFFF);
 }
-
 .ba-label{
   padding:10px;
   text-align:center;
@@ -381,6 +370,15 @@ textarea{min-height:104px;resize:vertical}
   color:var(--navy);
   background:white;
   font-size:14px;
+}
+.ba-note{
+  font-size:13px;
+  color:#6B7F93;
+  margin-top:10px;
+  background:#F5FAFF;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
 }
 
 @media(max-width:950px){
@@ -518,66 +516,60 @@ src="https://www.facebook.com/tr?id=1379087847441267&ev=PageView&noscript=1"
   <div class="inner">
     <div class="section-head">
       <h2>Before & After</h2>
-      <p>See examples of red eye reduction, color correction, and tear or crease correction.</p>
+      <p>Three simple photo restoration examples. Replace the placeholder JPEG file names with your real before and after images.</p>
     </div>
 
     <div class="before-after-grid">
-
       <div class="ba-card">
         <h3>Red Eye Reduction</h3>
-        <p>Before with red eyes, after with red eye reduction.</p>
-
+        <p>Show a photo with red eyes, then the corrected version with the red eye reduced.</p>
         <div class="ba-pair">
           <div class="ba-slot">
-            <img src="images/before_dance.jpg" alt="Before red eye reduction">
+            <img src="before_dance.jpg" alt="Before red eye reduction">
             <div class="ba-label">Before</div>
           </div>
-
           <div class="ba-slot">
-            <img src="images/after_dance.jpg" alt="After red eye reduction">
+            <img src="after_dance.jpg" alt="After red eye reduction">
             <div class="ba-label">After</div>
           </div>
         </div>
+        <div class="ba-note">Use: <strong>before_dance.jpg</strong> and <strong>after_dance.jpg</strong></div>
       </div>
 
       <div class="ba-card">
         <h3>Color Correction</h3>
-        <p>Before with faded color, after with improved color and brightness.</p>
-
+        <p>Show a faded photo, then the corrected version with better color and brightness.</p>
         <div class="ba-pair">
           <div class="ba-slot">
-            <img src="images/Yiayia_ORIG.jpg" alt="Before color correction">
+            <img src="Yiayia_ORIG.jpg" alt="Before color correction">
             <div class="ba-label">Before</div>
           </div>
-
           <div class="ba-slot">
-            <img src="images/Yiayia_Fix.jpg" alt="After color correction">
+            <img src="Yiayia_Fix.jpg" alt="After color correction">
             <div class="ba-label">After</div>
           </div>
         </div>
+        <div class="ba-note">Use: <strong>Yiayia_ORIG.jpg</strong> and <strong>Yiayia_Fix.jpg</strong></div>
       </div>
 
       <div class="ba-card">
         <h3>Tear & Crease Correction</h3>
-        <p>Before with tears, creases, or marks, after with those areas corrected.</p>
-
+        <p>Show a photo with tears, creases, or marks, then the cleaned-up version with those areas corrected.</p>
         <div class="ba-pair">
           <div class="ba-slot">
-            <img src="images/before_kitchen.jpg" alt="Before tear and crease correction">
+            <img src="before_kitchen.jpg" alt="Before crease and mark correction">
             <div class="ba-label">Before</div>
           </div>
-
           <div class="ba-slot">
-            <img src="images/after_kitchen.jpg" alt="After tear and crease correction">
+            <img src="after_kitchen.jpg" alt="After crease and mark correction">
             <div class="ba-label">After</div>
           </div>
         </div>
+        <div class="ba-note">Use: <strong>before_kitchen.jpg</strong> and <strong>after_kitchen.jpg</strong></div>
       </div>
-
     </div>
 
     <div style="height:28px"></div>
-
     <div class="card">
       <h3>Don’t Wait Until Photos Fade More</h3>
       <p>Old photos can become damaged, lost, or harder to restore over time. Digitizing gives your family a backup before those memories disappear.</p>
